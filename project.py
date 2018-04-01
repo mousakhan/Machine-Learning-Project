@@ -64,11 +64,7 @@ model.fit(X_train, Y_train)
 # Use k-means 5 folds and calculate accuracy
 cv = np.mean(cross_val_score(model, X, y, cv=5))
 
-# Calculate results on testing set
-results = model.predict(X_ts)
-
 #print("The recall is " + str(recall_score(Y_ts, results, average='macro') ))
 #print("The precision is " + str(precision_score(Y_ts, results, average='macro')) )
 print("The cross validation accuracy is " + str(cv * 100.0) + "%")
-print("The accuracy on testing set is " + str((results == Y_ts).sum()/float(Y_ts.size) * 100.0) + "%")
 
