@@ -28,7 +28,6 @@ df = shuffle(df, random_state=random_state)
 # Remove education column since education.num already exists as a column
 df = df.drop('education', 1)
 
-
 # Relabel <=50k to 0 for conveniance
 df = df.replace('<=50K', 0)
 
@@ -53,9 +52,15 @@ X = df.loc[:, df.columns != 'income']
 # Get labels
 y = df.iloc[:,-1].values
 
+# Split the data 70/30
+X_tr, X_ts, Y_tr, Y_ts = train_test_split(X, y, 
+                                           train_size = 0.7, 
+                                           random_state=random_state)
+
+
 # Use SMOTE to deal with imbalanced data, which creates synthetic data points
 sm = SMOTE(random_state=random_state)
-X, y = sm.fit_sample(X_tr, Y_tr)
+X_train, Y_train = sm.fit_sample(X_tr, Y_tr)
 
 # Creating model
 model = ensemble.GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)
